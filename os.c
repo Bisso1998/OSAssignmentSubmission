@@ -48,3 +48,16 @@ void* rdr()
     pthread_mutex_unlock(&mw);
     printf("A reader left");
 }
+
+
+void* wrtr()
+{ pthread_mutex_lock(&mw);
+  int x;
+  x=shared_value;
+  x++;
+  shared_value=x;
+  printf("Written Value is %d",shared_value);
+  printf("Number of Readers:%d",readcount);
+  pthread_mutex_unlock(&mw);
+
+}
