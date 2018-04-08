@@ -34,3 +34,17 @@ int main()
 
 
 }
+void* rdr()
+{ pthread_mutex_lock(&mr);
+  printf(" A reader is trying to read");
+  readcount++;
+  if(readcount==1)
+    pthread_mutex_lock(&mw);
+    pthread_mutex_unlock(&mr);
+    printf("The read value: %d",shared_value);
+    printf("Number of Readers:%d",readcount);
+    readcount--;
+  if(readcount==0)
+    pthread_mutex_unlock(&mw);
+    printf("A reader left");
+}
